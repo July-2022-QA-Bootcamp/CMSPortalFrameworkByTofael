@@ -21,6 +21,7 @@ public class BaseClass {
 		// This is an absolute path
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Tofael\\eclipse-workspace\\gov.portal.cms\\driver\\chromedriver.exe");
 		*/
+		
 		// new
 		// 2nd way, to show the location of chrome driver
 		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/driver/chromedriver.exe");

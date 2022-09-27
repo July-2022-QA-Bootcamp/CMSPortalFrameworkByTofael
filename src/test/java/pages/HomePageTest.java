@@ -52,15 +52,23 @@ public class HomePageTest extends BaseClass {
 	// This test case will fail
 	// org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element:{"method":"xpath","selector":"//a[text()='gunlock']"}
 	// There is no gunlock as a text in the page
+	// This is one of the way to test implicitly wait.
 	@Test(enabled = false)
 	public void unlockLinkClickedTest() {
 		driver.findElement(By.xpath("//a[text()='gunlock']")).click();
 	}
 	
 	// new
-	// Important: Use of name attribute as locator
+	// Important: Use of id attribute as locator
 	@Test(enabled = false)
 	public void loginButtonTest02() {
+		driver.findElement(By.id("cms-login-submit")).click();
+	}
+	
+	// new
+	// Important: Use of name attribute as locator
+	@Test(enabled = false)
+	public void loginButtonTest03() {
 		driver.findElement(By.name("Submit Login")).click();
 	}
 	
@@ -72,6 +80,7 @@ public class HomePageTest extends BaseClass {
 	}
 	
 	// new
+	// This is best scripted in ebay
 	// Important: Use of linkText as locator
 	@Test(enabled = false)
 	public void newUserRegistrationButtonClickTest03() {
@@ -79,6 +88,7 @@ public class HomePageTest extends BaseClass {
 	}
 	
 	// new
+	// This is best scripted in ebay
 	// Important: Use of partialLinkText as locator
 	@Test(enabled = false)
 	public void newUserRegistrationButtonClickTest04() {
@@ -95,16 +105,15 @@ public class HomePageTest extends BaseClass {
 	}
 
 	// new
+	// This is best scripted in ebay
 	// Important: Use of cssSelector as locator
-	// if the class contain separate words [btn btn-prim gh-spr], they are actually different class, then
+	// if the class contain separate words [cms-login-field ng-pristine ng-invalid ng-touched], they are actually different class, then
 	// we have to close the gap between classes by putting dot/period between them
-	// cssSelector by class --> first html tag, then dot, then write class name inside the string, 
-	// remove the space between class, and replace with dot or period
+	// cssSelector by class --> htmltag.class name value 
+	// remove the space between words in class value, and replace with dot or period
 	@Test(enabled = false)
 	public void clickUserIdFieldTest02() {
-		//driver.get("https://www.ebay.com/");
 		driver.findElement(By.cssSelector("input.cms-login-field.ng-pristine.ng-invalid.ng-touched")).click();
-		//driver.findElement(By.cssSelector("input.gh-tb.ui-autocomplete-input")).click();
 	}
 	
 	// new
@@ -112,7 +121,7 @@ public class HomePageTest extends BaseClass {
 	// cssSelector by id 
 	// first html tag, then # (hash), then write the value of id attribute inside the string
 	@Test(enabled = false)
-	public void loginButtonTest03() {
+	public void loginButtonTest04() {
 		driver.findElement(By.cssSelector("button#cms-login-submit")).click();
 	}
 	
@@ -122,7 +131,7 @@ public class HomePageTest extends BaseClass {
 	// cssSelector by another attribute
 	// --> htmltag[attribute name='value'] , in xpath you use // and @, which is absent here and you can use attribute except id and class
 	@Test(enabled = false)
-	public void loginButtonTest04() {
+	public void loginButtonTest05() {
 		driver.findElement(By.cssSelector("button[name='Submit Login']")).click();
 	}
 	
@@ -138,7 +147,7 @@ public class HomePageTest extends BaseClass {
 	// cssSelector by another attribute
 	// --> htmltag.value of class[attribute name='value'] , in xpath you use // and @, which is absent here and you can use attribute except id and class
 	@Test(enabled = false)
-	public void loginButtonTest05() {
+	public void loginButtonTest06() {
 		driver.findElement(By.cssSelector("button.cms-green-button-reg[name='Submit Login']")).click();
 	}
 	
@@ -148,17 +157,16 @@ public class HomePageTest extends BaseClass {
 	// cssSelector by another attribute
 	// --> htmltag#value of ID[attribute name='value'] , in xpath you use // and @, which is absent here and you can use attribute except id and class
 	@Test(enabled = false)
-	public void loginButtonTest06() {
+	public void loginButtonTest07() {
 		driver.findElement(By.cssSelector("button#cms-login-submit[name='Submit Login']")).click();
 	}
 	
 	// new
-	// Important: Use of cssSelector as locator
-	@Test(enabled = false)
-	public void tableTest() {
-		driver.get("https://www.amazon.com");
-		String t = driver.findElement(By.tagName("table")).getText();
-		System.out.println("The text for the webElemnet is: "+t);
+	// Important: Use of tagName as locator
+	// Although here, action is not correct
+	@Test(enabled = true)
+	public void headerTest() {
+		driver.findElement(By.tagName("header")).click();
 	}
 	
 	// new
@@ -176,8 +184,8 @@ public class HomePageTest extends BaseClass {
 	// disabled within the web page. isEnabled() is primarily used with buttons.
 	// Use of isEnabled(), a boolean type method
 	
-	@Test(enabled = true)
-	public void loginButtonTest07() throws InterruptedException {
+	@Test(enabled = false)
+	public void loginButtonTest08() throws InterruptedException {
 		boolean loginButtonEnabled = driver.findElement(By.id("cms-login-submit")).isEnabled();
 		System.out.println("Is the Login Button Enable? Ans: " + loginButtonEnabled);
 		Thread.sleep(4000);
