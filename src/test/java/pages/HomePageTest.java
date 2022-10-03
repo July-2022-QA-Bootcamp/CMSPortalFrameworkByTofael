@@ -1,10 +1,11 @@
 package pages;
 
+
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.devtools.v102.systeminfo.model.VideoDecodeAcceleratorCapability;
 import org.testng.annotations.Test;
 
 import BaseUtil.BaseClass;
@@ -201,7 +202,7 @@ public class HomePageTest extends BaseClass {
 		System.out.println("Is the New User Registration Button Enable? Ans: " + nurButtonEnabled);
 	}
 	
-	// new
+	
 	// from check box
 	@Test (enabled = false)
 	public void use_of_isSelected_method() {
@@ -209,7 +210,7 @@ public class HomePageTest extends BaseClass {
 		System.out.println("Is the Check Box Selected? Ans: " + checkBoxSelected);
 	}
 	
-	// new
+	
 	// how can you find the title of the page?
 	// right click on an empty place of any page -- click "view page source" -- ctrl+f (to find) -- Type 'title' -- find the <title> tag
 	@Test(enabled = false)
@@ -217,7 +218,7 @@ public class HomePageTest extends BaseClass {
 		System.out.println("The title of the Page is: " + driver.getTitle());
 	}
 	
-	// new
+	
 	// We use New User Registration
 	@Test(enabled = false)
 	public void use_of_getText_method () {
@@ -226,7 +227,7 @@ public class HomePageTest extends BaseClass {
 
 	}
 	
-	// new
+	
 	// We use New User Registration
 	@Test(enabled = false)
 	public void use_of_getCurrentURL_method () throws InterruptedException {
@@ -235,7 +236,7 @@ public class HomePageTest extends BaseClass {
 		System.out.println("The Current URL is: " + driver.getCurrentUrl());
 	}
 	
-	// new
+	
 	// We use New User Registration
 	@Test(enabled = false)
 	public void use_of_getAttribute_method () {
@@ -249,7 +250,7 @@ public class HomePageTest extends BaseClass {
 		System.out.println("The value of the href attribute is: " + value04);
 	}
 	
-	// new
+	
 	// We use 'User Id' Field and 'Password' field
 	@Test(enabled = false)
 	public void use_of_sendKeys_method  () throws InterruptedException {
@@ -263,7 +264,7 @@ public class HomePageTest extends BaseClass {
 	// use_of_sendKeys_method_then_click_submit_and_then_clear() in ebay
 	// use_of_sendKeys_method_then_click_by_enter_key_and_then_clear () in ebay
 	
-	// new
+	
 	@Test(enabled = false)
 	public void use_of_navigate_method () throws InterruptedException {
 		Thread.sleep(4000);
@@ -277,9 +278,9 @@ public class HomePageTest extends BaseClass {
 		Thread.sleep(4000);
 	}
 	
-	// new
+	
 	// Very important interview question	
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void setASpecificSizeOfWindow() throws InterruptedException {
 		Dimension dimension = new Dimension(800, 500);
 		driver.manage().window().setSize(dimension);
@@ -294,8 +295,24 @@ public class HomePageTest extends BaseClass {
 		driver.manage().window().setSize(dimension); // just to show again the set size
 		Thread.sleep(5000);
 		System.out.println("The size of the screen is: "+ driver.manage().window().getSize());
-		
+		driver.manage().window().fullscreen();
+		Thread.sleep(5000);
+		System.out.println("The size of the screen is: "+ driver.manage().window().getSize());		
 	}
+	
+	// not important at all
+	@SuppressWarnings("deprecation")
+	@Test(enabled = false)
+	public void setScriptTimeoutForWindow() {
+        driver.manage().timeouts().setScriptTimeout(Duration.ofSeconds(15));
+        // setScriptTimeout () method deprecated, so giving you warning, this method is going to be out from selenium
+        // you use @SuppressWarnings("deprecation")
+		driver.get("https://www.ebay.com");		
+
+	}
+	
+	
+	
 	
 	
 	
