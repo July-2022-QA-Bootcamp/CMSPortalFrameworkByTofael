@@ -1,8 +1,12 @@
 package pages;
 
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.time.Duration;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -15,7 +19,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import BaseUtil.BaseClass;
+import base.BaseClass;
 
 public class HomePageTest extends BaseClass {
 
@@ -99,7 +103,7 @@ public class HomePageTest extends BaseClass {
 	// This is best scripted in ebay
 	// Important: Use of linkText as locator
 	// Web Element: New User Registration Button
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void use_of_linkText_as_locator_in_new_user_registration_button() {
 		driver.findElement(By.linkText("New User Registration")).click();		
 	}
@@ -496,7 +500,7 @@ public class HomePageTest extends BaseClass {
 
 	// will pass
 	// use of soft assertion
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void use_of_getTitle_method_with_soft_assertion() throws InterruptedException {
 		Thread.sleep(5000);	
 		driver.get("https://www.mountsinai.org/");
@@ -839,11 +843,11 @@ public class HomePageTest extends BaseClass {
 	// 1st way: Scroll by Actions class
 	// scroll bottom and then top
 	@Test (enabled = false)
-	public void use_of_scroll_down_and_scroll_up_action () throws InterruptedException {
-		// for Scroll Down using Actions class
+	public void use_of_scroll_down_and_scroll_up_by_actions_class () throws InterruptedException {
+		// for Scroll Down using Actions class at the bottom of the page
 		actions.keyDown(Keys.CONTROL).sendKeys(Keys.END).perform();
 		Thread.sleep(5000);
-		// for Scroll Up using Actions class
+		// for Scroll Up using Actions class at the top of the page
 		actions.keyDown(Keys.CONTROL).sendKeys(Keys.HOME).perform();
 		Thread.sleep(5000);
 		//Keys.UP or Keys.Down doesn't change much but the test case passes		
@@ -852,8 +856,8 @@ public class HomePageTest extends BaseClass {
 	// important interview question
 	// 2nd way: Scroll by javascriptExecutor
 	// scroll in a certain position
-	@Test (enabled = true)
-	public void use_of_scroll_down_and_scroll_up_action02 () throws InterruptedException {
+	@Test (enabled = false)
+	public void use_of_scroll_down_and_scroll_up_by_javascriptExecutor () throws InterruptedException {
 		Thread.sleep(5000);	
 		driver.get("https://www.amazon.com/");
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
@@ -876,6 +880,196 @@ public class HomePageTest extends BaseClass {
 		System.out.println(sText);
 		
 	}
+	
+	// not important, just to know
+	@Test (enabled = false)
+	public void use_of_scroll_down_and_scroll_up_by_robot_class () throws InterruptedException, AWTException {
+		Thread.sleep(5000);	
+		driver.get("https://www.ebay.com/");
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		
+		Robot robot = new Robot();
+		
+		 // Scroll Down using Robot class
+		robot.keyPress(KeyEvent.VK_PAGE_DOWN); // Constant for the PAGE_DOWN virtual key.
+		robot.keyRelease(KeyEvent.VK_PAGE_DOWN);
+		Thread.sleep(5000);
+		
+		// Scroll Up using Robot class
+        robot.keyPress(KeyEvent.VK_PAGE_UP); // Constant for the PAGE_UP virtual key. 
+        robot.keyRelease(KeyEvent.VK_PAGE_UP);
+        Thread.sleep(5000);
+        
+        driver.navigate().back();
+		
+	}
+	
+	// scroll Into View The Element
+	// This is important, standard question
+	//TODO Not working, Need to ask Nasir
+	@Test(enabled = false)
+	public void scrollIntoViewTheElement(WebElement element) throws InterruptedException {
+		Thread.sleep(5000);
+		driver.navigate().to("https://portaldev.cms.gov/portal/");
+		Thread.sleep(5000);
+		WebElement learnMoreAboutEnterprisePortalElement = driver.findElement(By.xpath("//a[text()='Learn more about Enterprise Portal']"));
+		js.executeScript("arguments[0].scrollIntoView(true);", learnMoreAboutEnterprisePortalElement);
+	}
+	
+	// important for interview
+	@Test(enabled = false)
+	public void web_based_alert_accept_test () throws InterruptedException {
+		Thread.sleep(5000);	
+		driver.get("http://softwaretestingplace.blogspot.com/2017/03/javascript-alert-test-page.html");
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		driver.findElement(By.xpath("//button[text()='Try it']")).click();
+		Thread.sleep(4000);
+		Alert alert = driver.switchTo().alert();
+		Thread.sleep(4000);
+		System.out.println("The text of the Alert is: " + alert.getText()); 
+		// line 930, not part of the accept function, 
+		// we just added to know about, the text is present in the alert or not
+		alert.accept();
+		
+	}
+	
+	// important for interview
+	@Test(enabled = false)
+	public void web_based_alert_reject_test () throws InterruptedException {
+		Thread.sleep(5000);	
+		driver.get("http://softwaretestingplace.blogspot.com/2017/03/javascript-alert-test-page.html");
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		driver.findElement(By.xpath("//button[text()='Try it']")).click();
+		Thread.sleep(4000);
+		Alert alert = driver.switchTo().alert();
+		Thread.sleep(4000);
+		alert.dismiss();
+		
+	}
+	
+	// important for interview
+	@Test(enabled = false)
+	public void authenticationPopUp () throws InterruptedException {
+		Thread.sleep(5000);	
+		String userName = "admin";
+		String password = "admin";
+		// adding user name, password with URL
+		// original one is: "https://the-internet.herokuapp.com/basic_auth";
+		// Updated one is: "https://admin:admin@the-internet.herokuapp.com/basic_auth";
+		String url = "https://" + userName + ":" + password + "@" + "the-internet.herokuapp.com/basic_auth"; // learn this line, important interview question	
+		driver.get(url);
+		Thread.sleep(5000);	
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		Thread.sleep(5000);
+		// identify and get text after authentication of popup
+		String t = driver.findElement(By.tagName("p")).getText(); // we use tag name as a locator in our course
+		System.out.println("Text is: " + t);
+	}
+	
+	// important for interview
+	@Test(enabled = false)
+	public void use_of_right_click_action () throws InterruptedException {
+		Thread.sleep(5000);	
+		driver.get("https://demo.guru99.com/test/simple_context_menu.html");
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		WebElement rcButton = driver.findElement(By.xpath("//span[text()='right click me']"));
+		actions.moveToElement(rcButton).contextClick().build().perform(); // to do the right click, contextClick() is used
+		Thread.sleep(3000);
+		
+		// Just keep below code, Can't find the web element for Edit at present, the line 983 is from my collection.
+		// Below 2 is not relevant to right click, just doing some extra, which we know already
+		// Next: I want to click on Edit link on the displayed menu options
+		WebElement edit = driver.findElement(By.xpath("//span[text()='Edit']"));
+		Thread.sleep(5000);
+		edit.click(); // a regular click , not a right click
+		Thread.sleep(5000);
+		
+		// Switch to the alert box and click on OK button
+		Alert alert = driver.switchTo().alert();
+		System.out.println("\nAlert Text:" + alert.getText());
+		alert.accept();
+		Thread.sleep(5000);		
+	}
+	
+	// important for interview
+	@Test(enabled = false)
+	public void use_of_double_click_action () throws InterruptedException {
+		Thread.sleep(5000);	
+		driver.get("https://demo.guru99.com/test/simple_context_menu.html");
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		WebElement dcButton = driver.findElement(By.xpath("//button[text()='Double-Click Me To See Alert']"));
+		actions.doubleClick(dcButton).build().perform(); // to do the double click, doubleClick() is used
+		Thread.sleep(3000);
+		
+		// Not part of the double click action
+		// Switch to the alert box and click on OK button
+		Alert alert = driver.switchTo().alert();
+		System.out.println("\nAlert Text:" + alert.getText());
+		alert.accept();
+		Thread.sleep(5000);		
+	}
+	
+	// important for interview
+	@Test(enabled = false)
+	public void use_of_drag_and_drop_action () throws InterruptedException {
+		Thread.sleep(5000);	
+		driver.get("https://demo.guru99.com/test/drag_drop.html");
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		// Element which needs to drag (Bank)
+		WebElement sourceLocator = driver.findElement(By.id("credit2"));
+		// Element where need to be dropped.(In 'Account' field of debit side)
+		WebElement targetLocator = driver.findElement(By.xpath("//ol[@id='bank']"));
+		// We Use Actions class for drag and drop.
+		actions.dragAndDrop(sourceLocator, targetLocator).build().perform();
+		Thread.sleep(5000);	
+		
+	}
+	
+	// not important
+	@Test(enabled = false)
+	public void use_of_slider_action () throws InterruptedException {
+		Thread.sleep(5000);	
+		driver.get("https://demoqa.com/slider/");
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		// Retrieve WebElemnt 'slider' to perform mouse hover
+		// This is the field where volume is increased
+		WebElement slider = driver.findElement(By.xpath("//input[@class='range-slider range-slider--primary']"));
+		// Move mouse to x offset 50 i.e. in horizontal direction
+		Thread.sleep(5000);
+		// to test the slider is working or not
+		// dragAndDrop (int xoffset, int yoffset)
+		actions.dragAndDropBy(slider, 80, 0).build().perform(); // learn from here, 80 is in pixel which might not match with real volume change
+		Thread.sleep(5000);
+		// slider.click();
+		System.out.println("Moved slider in horizontal directions");
+	}
+	
+	// not important (alternate)
+	@Test(enabled = false)
+	public void use_of_slider_action_alternate () throws InterruptedException {
+		Thread.sleep(5000);	
+		driver.get("https://demoqa.com/slider/");
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		// Retrieve WebElemnt 'slider' to perform mouse hover
+		// This is the field where volume is increased
+		WebElement slider = driver.findElement(By.xpath("//input[@class='range-slider range-slider--primary']"));
+		// Move mouse to x offset 50 i.e. in horizontal direction
+		Thread.sleep(5000);
+		actions.clickAndHold(slider);
+		actions.moveByOffset(65, 0).build().perform();
+		Thread.sleep(5000);
+		System.out.println("Moved slider in horizontal directions");
+	}
+	
 	
 	
 	
