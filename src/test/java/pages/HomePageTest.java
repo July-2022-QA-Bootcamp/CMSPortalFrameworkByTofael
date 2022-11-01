@@ -35,7 +35,7 @@ public class HomePageTest extends BaseClass {
 
 	@Test(enabled = false, priority = 3)
 	public void clickUserIdFieldTest01() {
-		homePage.clickUserIdField(); // updated again
+		homePage.clickUserIdField1(); // updated again
 	}
 
 	@Test(enabled = false, priority = 2)
@@ -103,7 +103,7 @@ public class HomePageTest extends BaseClass {
 	// This is best scripted in ebay
 	// Important: Use of linkText as locator
 	// Web Element: New User Registration Button
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void use_of_linkText_as_locator_in_new_user_registration_button() {
 		driver.findElement(By.linkText("New User Registration")).click();		
 	}
@@ -1068,6 +1068,11 @@ public class HomePageTest extends BaseClass {
 		actions.moveByOffset(65, 0).build().perform();
 		Thread.sleep(5000);
 		System.out.println("Moved slider in horizontal directions");
+	}
+	
+	@Test(enabled = true)
+	public void clickUserIdFieldTest() {
+		homePage.clickUserId(); 
 	}
 	
 	
