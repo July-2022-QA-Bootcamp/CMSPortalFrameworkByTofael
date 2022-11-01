@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
+import static common.CommonActions.*;
 
 public class HomePage {
 	WebDriver driver;
@@ -43,7 +44,7 @@ public class HomePage {
 		return flag;
 	}
 	
-	public void clickUserIdField() {
+	public void clickUserIdField1() {
 		userId.click();
 	}
 	
@@ -63,6 +64,10 @@ public class HomePage {
 	// This is not common, 
 	public void forgotUserIdClicked() {
 		driver.findElement(forgotUserId).click();
+	}
+	
+	public void clickUserId() {
+		click(userId);
 	}
 	
 	
